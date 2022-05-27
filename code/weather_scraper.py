@@ -9,20 +9,20 @@ def weather_to_df(fips_code:str,county:str):
     date = ["03", "06", "07", "10"]
     
     for d in date:
-    start = "01-01-20" +d
-    end = "12-31-20" +d
-    dates = pd.date_range(start=start, end=end, freq = 'Y')
-    dates = dates.strftime("%Y")   
-    dates = dates.to_list()        
-    
-    Token = 'eLCmbnPGUBzvYdVYFMZYpulbSoXjYkfX'
+        start = "01-01-20" +d
+        end = "12-31-20" +d
+        dates = pd.date_range(start=start, end=end, freq = 'Y')
+        dates = dates.strftime("%Y")   
+        dates = dates.to_list()        
+        
+        Token = 'eLCmbnPGUBzvYdVYFMZYpulbSoXjYkfX'
 
-    date_rain = []
-    date_tmax = []
-    date_tmin = []
-    rain_lst = []
-    tmin_lst = []
-    tmax_lst = []
+        date_rain = []
+        date_tmax = []
+        date_tmin = []
+        rain_lst = []
+        tmin_lst = []
+        tmax_lst = []
 
         #query API for data of interest:
         for i in dates: #loop through list of years and append them to API call where appropriate
