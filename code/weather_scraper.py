@@ -3,7 +3,7 @@
     # 2 required arguments: county and associated fips code. 
     # E.g. # El Dorado: 06017, Imperial: 06025, Mendocino: 06045, Riverside: 06065, Siskiyou: 06093, Solano: 06095
 
-def weather_to_df(fips_code:int,county:str):
+def weather_to_df(fips_code:str,county:str):
     dataM = pd.DataFrame()
     new = []
     date = ["03", "06", "07", "10"]
