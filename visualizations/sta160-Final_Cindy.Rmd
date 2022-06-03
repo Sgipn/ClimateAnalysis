@@ -1,0 +1,82 @@
+---
+title: "STA160-FinalR"
+author: "Shih-Chi Chen"
+date: "5/29/2022"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r}
+#load data and drop na
+Fire_db <- read.csv("~/Downloads/STA160/Fire_db.csv",)
+Fire_db[Fire_db==""] <- NA
+new_df <- na.omit(Fire_db) # Remove NA on specific variables
+```
+
+## Plots 
+
+```{r}
+#change type to date
+new_df$date.DISCOVERY_DATE. <- as.Date(new_df$date.DISCOVERY_DATE.)
+new_df$date.CONT_DATE.<- as.Date(new_df$date.CONT_DATE.)
+
+#fire days
+days=new_df$date.CONT_DATE.-new_df$date.DISCOVERY_DATE.
+#add to df
+new_df$cts_days=days
+```
+
+```{r}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(hrbrthemes)
+
+# Usual area chart
+p <- new_df %>%
+  ggplot( aes(x=date.DISCOVERY_DATE., y=FIRE_SIZE)) +
+    geom_area(fill="#69b3a2", alpha=0.5) +
+    geom_line(color="#69b3a2") +
+    xlab("Fire Discovery Date") +
+    ylab("Fire size") +
+    theme_ipsum()
+
+# Turn it interactive with ggplotly
+p <- ggplotly(p)
+p
+```
+
+```{r}
+#plot cts days vs fire size
+library(ggplot2)
+ggplot(data = new_df) +
+  geom_point(mapping = aes(x = cts_days, y = FIRE_SIZE))
+```
+
+## Standardized Regression 
+
+```{r}
+#import weather data combined fire data
+weather_fire <- read.csv("~/Downloads/ClimateAnalysis-main/weather_fire.csv")
+```
+
+```{r}
+#change type to date
+weather_fire$Date <- as.Date(weather_fire$Date)
+weather_fire$date.CONT_DATE.<- as.Date(weather_fire$date.CONT_DATE.)
+
+#fire days
+days=weather_fire$date.CONT_DATE.-weather_fire$Date
+#add to df
+weather_fire$cts_days=days
+
+lm_fire=lm(scale(FIRE_SIZE)~scale(FIRE_YEAR)+scale(wind_speed)+scale(Precip_right)+scale(average_left)+scale(cts_days)+scale(LATITUDE)+scale(LONGITUDE),weather_fire)
+summary(lm_fire)
+```
+
+
+
+
