@@ -8,3 +8,4 @@ How to navigate repository:
 * `notebooks` contains all EDA and visualizations.
 * `code` contains a function used to scrape weather (temperature, precipitaiton, windspeed) data from a NOAA api.
 * `visualizations` contains additional plots created for EDA.
+* `report` contains our report containing all findings, analysis results, and visualizations.
